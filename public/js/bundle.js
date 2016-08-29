@@ -21464,7 +21464,7 @@
 /* 173 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	var _react = __webpack_require__(1);
 
@@ -21473,66 +21473,66 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var ResourceList = _react2.default.createClass({
-	    displayName: "ResourceList",
+	    displayName: 'ResourceList',
 
 	    render: function render() {
 	        var rows = this.props.data.map(function (r) {
 	            return _react2.default.createElement(
-	                "tr",
-	                null,
+	                'tr',
+	                { key: r.id },
 	                _react2.default.createElement(
-	                    "td",
+	                    'td',
 	                    null,
 	                    r.id
 	                ),
 	                _react2.default.createElement(
-	                    "td",
+	                    'td',
 	                    null,
 	                    r.desc
 	                ),
 	                _react2.default.createElement(
-	                    "td",
+	                    'td',
 	                    null,
 	                    r.value
 	                )
 	            );
 	        });
 	        return _react2.default.createElement(
-	            "div",
-	            { className: "container-fluid text-center" },
+	            'div',
+	            { className: 'container-fluid text-center' },
 	            _react2.default.createElement(
-	                "h2",
+	                'h2',
 	                null,
-	                "Table"
+	                'Table'
 	            ),
 	            _react2.default.createElement(
-	                "table",
-	                { className: "table" },
+	                'table',
+	                { className: 'table' },
 	                _react2.default.createElement(
-	                    "thead",
+	                    'thead',
 	                    null,
 	                    _react2.default.createElement(
-	                        "tr",
+	                        'tr',
 	                        null,
 	                        _react2.default.createElement(
-	                            "th",
+	                            'th',
 	                            null,
-	                            "Id"
+	                            'Id'
 	                        ),
 	                        _react2.default.createElement(
-	                            "th",
+	                            'th',
 	                            null,
-	                            "Msg"
+	                            'Msg'
 	                        ),
 	                        _react2.default.createElement(
-	                            "th",
+	                            'th',
 	                            null,
-	                            "Value"
+	                            'Value'
 	                        )
 	                    )
 	                ),
 	                _react2.default.createElement(
-	                    "tbody",
+	                    'tbody',
 	                    null,
 	                    rows
 	                )

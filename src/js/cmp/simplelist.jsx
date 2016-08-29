@@ -1,10 +1,11 @@
+'use strict'
 import React from 'react';
 
 var ResourceList = React.createClass({
     render: function(){
         var rows = this.props.data.map(function(r){
             return (
-                <tr>
+                <tr key={r.id}>
                     <td>{r.id}</td>
                     <td>{r.desc}</td>
                     <td>{r.value}</td>
