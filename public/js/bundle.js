@@ -21432,18 +21432,7 @@
 	var Main = _react2.default.createClass({
 	    displayName: 'Main',
 
-	    getInitialState: function getInitialState() {
-	        return { data: [] };
-	    },
-	    componentDidMount: function componentDidMount() {
-	        var _this = this;
 
-	        $.getJSON('/api/msgs', function (result) {
-	            if (result.data !== null) {
-	                _this.setState({ data: result.data });
-	            }
-	        });
-	    },
 	    render: function render() {
 	        return _react2.default.createElement(
 	            'div',
@@ -21453,7 +21442,7 @@
 	                null,
 	                'Base React Express App'
 	            ),
-	            _react2.default.createElement(_simplelist2.default, { data: this.state.data })
+	            _react2.default.createElement(_simplelist2.default, null)
 	        );
 	    }
 	});
@@ -21475,8 +21464,29 @@
 	var ResourceList = _react2.default.createClass({
 	    displayName: 'ResourceList',
 
+	    getInitialState: function getInitialState() {
+	        return { data: [] };
+	    },
+	    handleGetFromServer: function handleGetFromServer() {
+	        var _this = this;
+
+	        $.getJSON('/api/msgs', function (result) {
+	            if (result.data !== null) {
+	                _this.setState({ data: result.data });
+	            } else {
+	                _this.setState({ data: [] });
+	            }
+	            console.log("got: " + JSON.stringify(_this.state.data));
+	        }).fail(function (err) {
+	            console.error("Err caught: " + err.toString());
+	        });
+	    },
+	    componentDidMount: function componentDidMount() {
+	        this.handleGetFromServer();
+	        setInterval(this.handleGetFromServer, 2000);
+	    },
 	    render: function render() {
-	        var rows = this.props.data.map(function (r) {
+	        var rows = this.state.data.map(function (r) {
 	            return _react2.default.createElement(
 	                'tr',
 	                { key: r.id },
@@ -21507,7 +21517,7 @@
 	            ),
 	            _react2.default.createElement(
 	                'table',
-	                { className: 'table bordered-table' },
+	                { className: 'table table-bordered' },
 	                _react2.default.createElement(
 	                    'thead',
 	                    null,

@@ -2,8 +2,28 @@
 import React from 'react';
 
 var ResourceList = React.createClass({
+    getInitialState: function(){
+        return {data: []};
+    },
+    handleGetFromServer: function(){
+        $.getJSON('/api/msgs', (result) => {            
+            if(result.data!==null){
+                this.setState({data: result.data});
+                
+            } else{
+                this.setState({data: []});
+            }
+            console.log("got: " + JSON.stringify(this.state.data));
+        }).fail((err) => {
+            console.error("Err caught: " + err.toString());
+        });
+    },
+    componentDidMount: function(){
+        this.handleGetFromServer();
+        setInterval(this.handleGetFromServer, 2000);
+    },    
     render: function(){
-        var rows = this.props.data.map(function(r){
+        var rows = this.state.data.map(function(r){
             return (
                 <tr key={r.id}>
                     <td>{r.id}</td>
