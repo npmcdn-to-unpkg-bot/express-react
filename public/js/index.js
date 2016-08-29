@@ -1,4 +1,10 @@
 var Main = React.createClass({
+    /*
+    componentDidMount: function(){
+        $.getJSON('api/user/1', function(data){
+            alert(JSON.stringify(data));
+        });
+    }, */
     render: function(){
         return (
             <div className="container-fluid well text-center">
