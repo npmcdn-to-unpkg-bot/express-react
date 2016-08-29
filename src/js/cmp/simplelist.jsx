@@ -15,7 +15,7 @@ var ResourceList = React.createClass({
         return (
             <div className="container-fluid text-center">
                 <h2>Table</h2>
-                <table className="table">
+                <table className="table table-bordered">
                     <thead>
                         <tr>
                             <th>Id</th>

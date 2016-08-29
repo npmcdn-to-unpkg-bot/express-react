@@ -21507,7 +21507,7 @@
 	            ),
 	            _react2.default.createElement(
 	                'table',
-	                { className: 'table' },
+	                { className: 'table bordered-table' },
 	                _react2.default.createElement(
 	                    'thead',
 	                    null,
