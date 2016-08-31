@@ -21543,7 +21543,7 @@
 	            act = {};
 	        act.modalOkCb = this.props.modalOkCb || function () {};
 	        act.modalCloseCb = this.props.modalCloseCb || function () {};
-	        data.customClass = this.props.customClass || 'btn-md';
+	        data.customClass = this.props.customClass || 'btn-default';
 	        return { data: data, act: act };
 	    },
 	    setUpPopup: function setUpPopup() {

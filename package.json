@@ -4,7 +4,7 @@
   "description": "",
   "main": "./src/index.jsx",
   "scripts": {
-    "start": "concurrent \"node app.js\" \"webpack-dev-server\" "
+    "start": "concurrent \"node app.js\" \"webpack-dev-server\" \"webpack --watch\""
   },
   "author": "Guilherme Leal <lealhugui@gmail.com>",
   "license": "MIT",
