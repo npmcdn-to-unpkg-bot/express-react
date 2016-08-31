@@ -56,11 +56,9 @@
 
 	var _main = __webpack_require__(172);
 
-	var _main2 = _interopRequireDefault(_main);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	_reactDom2.default.render(_react2.default.createElement(_main2.default, null), document.getElementById('main'));
+	_reactDom2.default.render(_react2.default.createElement(_main.Main, null), document.getElementById('main'));
 
 /***/ },
 /* 1 */
@@ -21419,35 +21417,47 @@
 
 	'use strict';
 
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.Main = undefined;
+
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _simplelist = __webpack_require__(173);
+	var _reactDom = __webpack_require__(34);
 
-	var _simplelist2 = _interopRequireDefault(_simplelist);
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _popup = __webpack_require__(173);
+
+	var _simplelist = __webpack_require__(174);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var Main = _react2.default.createClass({
+	var Main = exports.Main = _react2.default.createClass({
 	    displayName: 'Main',
 
 
 	    render: function render() {
 	        return _react2.default.createElement(
 	            'div',
-	            { className: 'container-fluid well text-center' },
+	            null,
 	            _react2.default.createElement(
-	                'h1',
-	                null,
-	                'Base React Express App'
-	            ),
-	            _react2.default.createElement(_simplelist2.default, null)
+	                'div',
+	                { className: 'container-fluid well text-center' },
+	                _react2.default.createElement(
+	                    'h1',
+	                    null,
+	                    'Base React Express App'
+	                ),
+	                _react2.default.createElement(_simplelist.ResourceList, null),
+	                _react2.default.createElement(_popup.Popup, null)
+	            )
 	        );
 	    }
 	});
-
-	module.exports = Main;
 
 /***/ },
 /* 173 */
@@ -21455,13 +21465,104 @@
 
 	'use strict';
 
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.PopupButton = exports.Popup = undefined;
+
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _reactDom = __webpack_require__(34);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var ResourceList = _react2.default.createClass({
+	var Popup = exports.Popup = _react2.default.createClass({
+	    displayName: 'Popup',
+
+	    render: function render() {
+	        return _react2.default.createElement(
+	            'div',
+	            { id: 'genericPopup', className: 'modal fade', role: 'dialog' },
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'modal-dialog' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'modal-content' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'modal-header' },
+	                        _react2.default.createElement(
+	                            'button',
+	                            { type: 'button', className: 'close', 'data-dismiss': 'modal' },
+	                            '×'
+	                        ),
+	                        _react2.default.createElement('h4', { id: 'popupTitle', className: 'modal-title' })
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'modal-body' },
+	                        _react2.default.createElement('p', { id: 'popupContent' })
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'modal-footer' },
+	                        _react2.default.createElement(
+	                            'button',
+	                            { type: 'button', className: 'btn btn-default', 'data-dismiss': 'modal' },
+	                            'Fechar'
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+
+	var PopupButton = exports.PopupButton = _react2.default.createClass({
+	    displayName: 'PopupButton',
+
+	    setPopupContent: function setPopupContent() {
+	        $("#genericPopup #popupTitle").html(this.props.popupTitle);
+	        $("#genericPopup #popupContent").html(this.props.popupContent);
+	    },
+	    render: function render() {
+	        return _react2.default.createElement(
+	            'button',
+	            { onClick: this.setPopupContent, type: 'button', className: 'btn btn-md', 'data-toggle': 'modal', 'data-target': '#genericPopup' },
+	            this.props.children
+	        );
+	    }
+	});
+
+/***/ },
+/* 174 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.ResourceList = undefined;
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(34);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _popup = __webpack_require__(173);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var ResourceList = exports.ResourceList = _react2.default.createClass({
 	    displayName: 'ResourceList',
 
 	    getInitialState: function getInitialState() {
@@ -21476,7 +21577,6 @@
 	            } else {
 	                _this.setState({ data: [] });
 	            }
-	            console.log("got: " + JSON.stringify(_this.state.data));
 	        }).fail(function (err) {
 	            console.error("Err caught: " + err.toString());
 	        });
@@ -21516,6 +21616,20 @@
 	                'Table'
 	            ),
 	            _react2.default.createElement(
+	                _popup.PopupButton,
+	                {
+	                    popupTitle: 'Teste',
+	                    popupContent: 'Content Teste' },
+	                'Click Teste1'
+	            ),
+	            _react2.default.createElement(
+	                _popup.PopupButton,
+	                {
+	                    popupTitle: 'Teste2',
+	                    popupContent: 'Content Teste2' },
+	                'Click Teste 2'
+	            ),
+	            _react2.default.createElement(
 	                'table',
 	                { className: 'table table-bordered' },
 	                _react2.default.createElement(
@@ -21550,8 +21664,6 @@
 	        );
 	    }
 	});
-
-	module.exports = ResourceList;
 
 /***/ }
 /******/ ]);

@@ -2,7 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Main from './cmp/main.jsx';
+import {Main} from './cmp/main.jsx';
 
 ReactDOM.render(
     <Main />,

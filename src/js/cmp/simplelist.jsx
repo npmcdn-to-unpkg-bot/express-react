@@ -1,7 +1,10 @@
-'use strict'
+'use strict';
 import React from 'react';
+import ReactDOM from 'react-dom';
 
-var ResourceList = React.createClass({
+import {PopupButton} from './popup.jsx';
+
+export var ResourceList = React.createClass({
     getInitialState: function(){
         return {data: []};
     },
@@ -13,7 +16,7 @@ var ResourceList = React.createClass({
             } else{
                 this.setState({data: []});
             }
-            console.log("got: " + JSON.stringify(this.state.data));
+            
         }).fail((err) => {
             console.error("Err caught: " + err.toString());
         });
@@ -33,8 +36,19 @@ var ResourceList = React.createClass({
             );
         });
         return (
+
             <div className="container-fluid text-center">
                 <h2>Table</h2>
+                <PopupButton                     
+                    popupTitle="Teste"
+                    popupContent="Content Teste" >
+                    Click Teste1
+                </PopupButton>
+                <PopupButton                     
+                    popupTitle="Teste2"
+                    popupContent="Content Teste2" >
+                    Click Teste 2
+                </PopupButton>                
                 <table className="table table-bordered">
                     <thead>
                         <tr>
@@ -51,5 +65,3 @@ var ResourceList = React.createClass({
         )
     }
 });
-
-module.exports = ResourceList;

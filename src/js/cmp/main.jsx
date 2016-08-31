@@ -1,17 +1,22 @@
-'use strict'
+'use strict';
 import React from 'react';
-import ResourceList from './simplelist.jsx';
+import ReactDOM from 'react-dom';
 
-var Main = React.createClass({
+import {Popup} from './popup.jsx';
+import {ResourceList} from './simplelist.jsx';
+
+export var Main = React.createClass({
     
     render: function(){
         return (
-            <div className="container-fluid well text-center">
-                <h1>Base React Express App</h1>
-                <ResourceList />
+            <div>
+                <div className="container-fluid well text-center">
+                    <h1>Base React Express App</h1>
+                    <ResourceList />
+                    <Popup  />
+                </div>
+            
             </div>
         );
     }
 });
-
-module.exports = Main;
