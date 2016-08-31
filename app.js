@@ -10,10 +10,12 @@ var app = express();
 app.use('/public/css', express.static(__dirname + '/public/css'));
 app.use('/public/js', express.static(__dirname + '/public/js'));
 
+/*
 //Simple routing
 app.get('/', function (req, res) {
     res.sendFile(__dirname+'/index.html');
 });
+*/
 
 const MY_DATA_FILE = path.join(__dirname, 'data.json');
 
@@ -35,7 +37,7 @@ app.get('/api/:resource/:id', function(req, res){
         d = JSON.parse(d);
         let this_data = {};
         
-        for(i=0; i<d.length;i++){                
+        for(var i=0; i<d.length;i++){                
             if(d[i].id.toString()===req.params.id.toString()){
                 this_data = d[i];
                 break;

@@ -21,6 +21,12 @@ export var ResourceList = React.createClass({
             console.error("Err caught: " + err.toString());
         });
     },
+    handlePopupOk: function(){
+        alert("Ok");
+    },
+    handlePopupClose: function(){
+        alert("Modal is closed");
+    },
     componentDidMount: function(){
         this.handleGetFromServer();
         setInterval(this.handleGetFromServer, 2000);
@@ -41,12 +47,16 @@ export var ResourceList = React.createClass({
                 <h2>Table</h2>
                 <PopupButton                     
                     popupTitle="Teste"
-                    popupContent="Content Teste" >
+                    popupContent="Content Teste" 
+                    modalOkCb={this.handlePopupOk}
+                    modalCloseCb={this.handlePopupClose} 
+                    >
                     Click Teste1
                 </PopupButton>
                 <PopupButton                     
                     popupTitle="Teste2"
-                    popupContent="Content Teste2" >
+                    popupContent="Content Teste2" 
+                    customClass="btn-info">
                     Click Teste 2
                 </PopupButton>                
                 <table className="table table-bordered">

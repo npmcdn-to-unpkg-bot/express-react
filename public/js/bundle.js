@@ -21480,6 +21480,9 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	/*
+	    Modal popup container component. Must be activated with component `PopupButton`
+	*/
 	var Popup = exports.Popup = _react2.default.createClass({
 	    displayName: 'Popup',
 
@@ -21498,7 +21501,7 @@
 	                        { className: 'modal-header' },
 	                        _react2.default.createElement(
 	                            'button',
-	                            { type: 'button', className: 'close', 'data-dismiss': 'modal' },
+	                            { id: 'modalClose', type: 'button', className: 'close', 'data-dismiss': 'modal' },
 	                            '×'
 	                        ),
 	                        _react2.default.createElement('h4', { id: 'popupTitle', className: 'modal-title' })
@@ -21513,7 +21516,7 @@
 	                        { className: 'modal-footer' },
 	                        _react2.default.createElement(
 	                            'button',
-	                            { type: 'button', className: 'btn btn-default', 'data-dismiss': 'modal' },
+	                            { id: 'modalOk', type: 'button', className: 'btn btn-default', 'data-dismiss': 'modal' },
 	                            'Fechar'
 	                        )
 	                    )
@@ -21523,17 +21526,45 @@
 	    }
 	});
 
+	/*
+	    Modal Popup activator button.
+	    
+	    @customClass: Custom CSS class that will be injected in the button. Default: btn-md
+	    @popupTitle: Title that will be shown in the modal component. Default: [empty]
+	    @popupContent: Content to show in the modal popup. Default: [empty]
+	    @modalOkCb: Callback to be executed through the modal "Accept" button.
+	    @modalCloseCb: Callback to be executed through the modal "Accept" button.
+	*/
 	var PopupButton = exports.PopupButton = _react2.default.createClass({
 	    displayName: 'PopupButton',
 
-	    setPopupContent: function setPopupContent() {
+	    getInitialState: function getInitialState() {
+	        var data = {},
+	            act = {};
+	        act.modalOkCb = this.props.modalOkCb || function () {};
+	        act.modalCloseCb = this.props.modalCloseCb || function () {};
+	        data.customClass = this.props.customClass || 'btn-md';
+	        return { data: data, act: act };
+	    },
+	    setUpPopup: function setUpPopup() {
 	        $("#genericPopup #popupTitle").html(this.props.popupTitle);
 	        $("#genericPopup #popupContent").html(this.props.popupContent);
+	        var modalOk = $("#genericPopup #modalOk");
+	        modalOk.off('click');
+	        modalOk.click(this.state.act.modalOkCb);
+	        var modalClose = $("#genericPopup #modalClose");
+	        modalClose.off('click');
+	        modalClose.click(this.state.act.modalCloseCb);
 	    },
 	    render: function render() {
 	        return _react2.default.createElement(
 	            'button',
-	            { onClick: this.setPopupContent, type: 'button', className: 'btn btn-md', 'data-toggle': 'modal', 'data-target': '#genericPopup' },
+	            {
+	                type: 'button',
+	                className: "btn " + this.state.data.customClass,
+	                'data-toggle': 'modal',
+	                'data-target': '#genericPopup',
+	                onClick: this.setUpPopup },
 	            this.props.children
 	        );
 	    }
@@ -21581,6 +21612,12 @@
 	            console.error("Err caught: " + err.toString());
 	        });
 	    },
+	    handlePopupOk: function handlePopupOk() {
+	        alert("Ok");
+	    },
+	    handlePopupClose: function handlePopupClose() {
+	        alert("Modal is closed");
+	    },
 	    componentDidMount: function componentDidMount() {
 	        this.handleGetFromServer();
 	        setInterval(this.handleGetFromServer, 2000);
@@ -21619,14 +21656,18 @@
 	                _popup.PopupButton,
 	                {
 	                    popupTitle: 'Teste',
-	                    popupContent: 'Content Teste' },
+	                    popupContent: 'Content Teste',
+	                    modalOkCb: this.handlePopupOk,
+	                    modalCloseCb: this.handlePopupClose
+	                },
 	                'Click Teste1'
 	            ),
 	            _react2.default.createElement(
 	                _popup.PopupButton,
 	                {
 	                    popupTitle: 'Teste2',
-	                    popupContent: 'Content Teste2' },
+	                    popupContent: 'Content Teste2',
+	                    customClass: 'btn-info' },
 	                'Click Teste 2'
 	            ),
 	            _react2.default.createElement(
