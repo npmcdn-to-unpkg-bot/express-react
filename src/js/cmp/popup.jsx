@@ -38,6 +38,7 @@ export var Popup = React.createClass({
     @modalOkCb: Callback to be executed through the modal "Accept" button.
     @modalCloseCb: Callback to be executed through the modal "Accept" button.
 */
+
 export var PopupButton = React.createClass({
     getInitialState: function(){
         let data={}, act = {};
@@ -48,13 +49,23 @@ export var PopupButton = React.createClass({
     },
     setUpPopup: function(){
         $("#genericPopup #popupTitle").html(this.props.popupTitle);
-        $("#genericPopup #popupContent").html(this.props.popupContent);
-        let modalOk = $("#genericPopup #modalOk");
-        modalOk.off('click');
-        modalOk.click(this.state.act.modalOkCb);
-        let modalClose = $("#genericPopup #modalClose");
-        modalClose.off('click');
-        modalClose.click(this.state.act.modalCloseCb);
+        $("#genericPopup #popupContent").html(this.props.popupContent);  
+        var cbOk = this.state.act.modalOkCb;
+        $("#genericPopup #modalOk")
+            .off('click').on('click', function(e){
+                    e.preventDefault();
+                    e.stopPropagation()
+                    cbOk(e);
+                    $('#genericPopup').modal('hide');
+                });
+        var cbCancel = this.state.act.modalOkCb;
+        $("#genericPopup #modalClose")
+            .off('click').on('click', function(e){
+                    e.preventDefault();
+                    e.stopPropagation()
+                    cbCancel(e);
+                    $('#genericPopup').modal('hide');
+                });
     },
     render: function(){
         return (

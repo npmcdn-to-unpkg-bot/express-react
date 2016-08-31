@@ -21432,7 +21432,7 @@
 
 	var _popup = __webpack_require__(173);
 
-	var _simplelist = __webpack_require__(174);
+	var _simplelist = __webpack_require__(175);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -21535,6 +21535,7 @@
 	    @modalOkCb: Callback to be executed through the modal "Accept" button.
 	    @modalCloseCb: Callback to be executed through the modal "Accept" button.
 	*/
+
 	var PopupButton = exports.PopupButton = _react2.default.createClass({
 	    displayName: 'PopupButton',
 
@@ -21549,12 +21550,20 @@
 	    setUpPopup: function setUpPopup() {
 	        $("#genericPopup #popupTitle").html(this.props.popupTitle);
 	        $("#genericPopup #popupContent").html(this.props.popupContent);
-	        var modalOk = $("#genericPopup #modalOk");
-	        modalOk.off('click');
-	        modalOk.click(this.state.act.modalOkCb);
-	        var modalClose = $("#genericPopup #modalClose");
-	        modalClose.off('click');
-	        modalClose.click(this.state.act.modalCloseCb);
+	        var cbOk = this.state.act.modalOkCb;
+	        $("#genericPopup #modalOk").off('click').on('click', function (e) {
+	            e.preventDefault();
+	            e.stopPropagation();
+	            cbOk(e);
+	            $('#genericPopup').modal('hide');
+	        });
+	        var cbCancel = this.state.act.modalOkCb;
+	        $("#genericPopup #modalClose").off('click').on('click', function (e) {
+	            e.preventDefault();
+	            e.stopPropagation();
+	            cbCancel(e);
+	            $('#genericPopup').modal('hide');
+	        });
 	    },
 	    render: function render() {
 	        return _react2.default.createElement(
@@ -21571,7 +21580,8 @@
 	});
 
 /***/ },
-/* 174 */
+/* 174 */,
+/* 175 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
